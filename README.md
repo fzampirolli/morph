@@ -1,6 +1,6 @@
-# morph
+# morph.py
 
-Aceito no [EduComp2024](https://www.educompbrasil.org/simposio)
+Accept in the [EduComp2024](https://www.educompbrasil.org/simposio)
 ```
 A Practical Digital Image Processing Course with morph.py
 
