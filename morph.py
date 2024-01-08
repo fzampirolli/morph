@@ -9,7 +9,8 @@ class mm(object):
 
   def __init__(self):
     pass
-    
+
+  @staticmethod
   def install(packages=['matplotlib','numpy','opencv-python']):
     """This function will install the packages
     input: <packages> list of packages.
@@ -18,7 +19,8 @@ class mm(object):
         subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
   #### IMAGE UTILITIES: CREATE, DRAW, CHECK ####
-    
+
+  @staticmethod
   def read(file):
     """ Reads an image from a local file path or URL.
     input: <str> File path or URL (full or 'id=keyGoogleDrive').
@@ -39,7 +41,8 @@ class mm(object):
         return io.imread(url)
     else:
         return cv2.imread(file)
-    
+
+  @staticmethod
   def color(img):
     """ Converts an image to RGB color space.
     input: <numpy.ndarray> Image in BGR, grayscale, or RGBA format.
@@ -55,7 +58,8 @@ class mm(object):
         return cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     else:
         raise ValueError("Unsupported image format.")
-   
+
+  @staticmethod
   def gray(img):
     """ Converts a color image to grayscale.
     input: <numpy.ndarray> Input color image.
@@ -67,7 +71,8 @@ class mm(object):
         return cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
     else:
         return cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-        
+
+  @staticmethod
   def threshold(img, limiar=0):
     """ Thresholds an input image by a threshold value or using Otsu's method.
     input: <numpy.ndarray> Input image to be thresholded.
@@ -80,7 +85,8 @@ class mm(object):
     else:
         value, th = cv2.threshold(img, limiar, 255, cv2.THRESH_BINARY)
     return th
-    
+
+  @staticmethod
   def show(*args):
     """ This function will draw images f
     input: <*args> set of images f_i, where i>0 is binary image
@@ -100,7 +106,8 @@ class mm(object):
     if not mm.IN_COLAB:
         plt.savefig('fig_' + str(mm.count_Images).zfill(4) + '.png')
         mm.count_Images += 1
-        
+
+  @staticmethod
   def readImg(h, w):
     """ This function reads an image from input and returns it as a NumPy array.
     input: size of image: height and width
@@ -121,6 +128,7 @@ class mm(object):
         m[l] = [int(i) for i in input().split() if i]
     return m
 
+  @staticmethod
   def readImg2():
     """ This function reads an image of varying size from standard input.
     Example:
@@ -136,7 +144,8 @@ class mm(object):
       b.append(row) # Add the row to the list of rows.
       read_row = input()
     return np.array(b).astype('uint8')
-      
+
+  @staticmethod
   def randomImage(h, w, maxValue=9):
     """ Creates a random image of size h x w with integer values in [0,maxValue].
     input: size of image: height, width and max value
@@ -148,7 +157,8 @@ class mm(object):
              [0, 4, 2],
              [5, 1, 5]], dtype=uint8)"""
     return np.random.randint(maxValue + 1, size=(h, w)).astype('uint8')
-    
+
+  @staticmethod
   def drawImage(f):
     """ Converts the input image f into a string representation suitable for printing.
     Args: f (ndarray): The input image.
@@ -169,6 +179,7 @@ class mm(object):
         string_representation += '\n'
     return string_representation
 
+  @staticmethod
   def drawImagePlt(f):
     """ Displays the input image f using Matplotlib.
     Args: f (ndarray): The input image.
@@ -189,7 +200,8 @@ class mm(object):
     # Add grid lines.
     [plt.axvline(i + .5, 0, h, color='r') for i in range(w - 1)]
     [plt.axhline(j + .5, 0, w, color='r') for j in range(h - 1)]
-  
+
+  @staticmethod
   def drawImageKernel(f,B,x,y):
       """This function will draw image f, considering a kernel
       input:
@@ -296,7 +308,8 @@ class mm(object):
       - y: result of add
     """
     return np.maximum(f,g)
-    
+
+  @staticmethod
   def hist(img):
     """Função para retornar o histograma
       Sintaxe:
@@ -309,8 +322,8 @@ class mm(object):
         cor = img.flatten()[i]
         H[cor] += 1
     return np.asarray(H)
-      
-  
+
+  @staticmethod
   def histPlus(img):
     """Função para retornar o histograma e todos os pixels de cada cor
       Sintaxe:
@@ -328,7 +341,8 @@ class mm(object):
         else:
           vet[str(cor)] = [i]
     return H,vet
-    
+
+  @staticmethod
   def equalizacao(image):
     """Função para retornar a imagem equalizada pelo valor máximo
       Sintaxe:
@@ -336,6 +350,7 @@ class mm(object):
         input: image
         output imgEqu
     """
+    @staticmethod
     def somaAcumulada(prob):
         soma = np.zeros(len(prob))
         soma[0] = prob[0]
@@ -419,7 +434,7 @@ class mm(object):
   #### BASIC MORPHOLOGICAL OPERATORS ####
 
   @staticmethod
-  def ero(f,Bc=mm.sebox()):
+  def ero(f,Bc=np.zeros((3,3),dtype= 'uint8')):
       """This function will create an erosion of f by Bc
       input:
        - f: input image
@@ -433,7 +448,7 @@ class mm(object):
         return mm.ero1(f,Bc)
 
   @staticmethod
-  def dil(f,Bc=mm.sebox()):
+  def dil(f,Bc=np.zeros((3,3),dtype= 'uint8')):
       """This function will create an dilate of f by Bc
       input:
        - f: input image
@@ -447,7 +462,7 @@ class mm(object):
         return mm.dil1(f,Bc)
         
   @staticmethod
-  def ero0(f,Bc=mm.sebox()):
+  def ero0(f,Bc=np.zeros((3,3),dtype= 'uint8')):
       """This function will create an erosion of f by Bc
       input:
        - f: input image
@@ -478,7 +493,7 @@ class mm(object):
       return g
 
   @staticmethod
-  def dil0(f,Bc=mm.sebox()):
+  def dil0(f,Bc=np.zeros((3,3),dtype= 'uint8')):
       """This function will create a dilate of f by Bc
       input:
        - f: input image
@@ -510,7 +525,7 @@ class mm(object):
       return g
 
   @staticmethod
-  def ero1(f,b=mm.sebox()):
+  def ero1(f,b=np.zeros((3,3),dtype= 'uint8')):
       """This function will create an erosion of f by b
       input:
        - f: input image
@@ -539,8 +554,9 @@ class mm(object):
                 if g[y,x] > f[viz_y,viz_x] - b[by,bx]:
                   g[y,x] = f[viz_y,viz_x] - b[by,bx]
       return g
-      
-  def dil1(f,b=mm.sebox()):
+
+  @staticmethod
+  def dil1(f,b=np.zeros((3,3),dtype= 'uint8')):
       """This function will create a dilate of f by b
       input:
        - f: input image
@@ -569,8 +585,8 @@ class mm(object):
                 if g[y,x] < f[viz_y,viz_x] + b[by,bx]:
                   g[y,x] = f[viz_y,viz_x] + b[by,bx]
       return g
- 
- 
+
+  @staticmethod
   def correlacao0(F, kernel, bias):
     """This function will create an correlation of f by b
     input:
@@ -594,7 +610,7 @@ class mm(object):
    ##### MORPHOLOGICAL OPERATORS USING DILATATION OR EROSION #####
 
   @staticmethod
-  def gradm(f,b=mm.sebox()):
+  def gradm(f,b=np.zeros((3,3),dtype= 'uint8')):
     """This fuction will be dilate f by b minus erodel f by b
     input:
       - f: input image
@@ -639,7 +655,7 @@ class mm(object):
     return y
 
   @staticmethod
-  def infrec(f,g,b=mm.sebox()):
+  def infrec(f,g,b=np.zeros((3,3),dtype= 'uint8')):
     """This function will be dilate g with minimum f, until converge
     input: 
       - f: input image
@@ -658,7 +674,7 @@ class mm(object):
   
     
   @staticmethod
-  def suprec(f,g,b=mm.sebox()):
+  def suprec(f,g,b=np.zeros((3,3),dtype= 'uint8')):
     """This function will be erode g with maximum f, until converge
     input:
       - f: input image
@@ -676,7 +692,7 @@ class mm(object):
     return y
     
   @staticmethod
-  def closerec(f,b=mm.sebox(),bc=mm.sebox()):
+  def closerec(f,b=np.zeros((3,3),dtype= 'uint8'),bc=np.zeros((3,3),dtype= 'uint8')):
     """This function will be erode g with maximum f, until converge
     input:
       - f: input image
@@ -723,7 +739,7 @@ class mm(object):
     
     
   @staticmethod
-  def asf(f,filter='OC',b=mm.sebox(),n=1):
+  def asf(f,filter='OC',b=np.zeros((3,3),dtype= 'uint8'),n=1):
     """This function will create an alternating sequential filter
     input:
       - f: input image
@@ -762,31 +778,31 @@ class mm(object):
     return y
 
   @staticmethod
-  def openth(f,b=mm.sebox()):
+  def openth(f,b=np.zeros((3,3),dtype= 'uint8')):
       return mm.subm(f,cv2.morphologyEx(f, cv2.MORPH_OPEN, b))
 
   @staticmethod
-  def openth1(f,b=mm.sebox()):
+  def openth1(f,b=np.zeros((3,3),dtype= 'uint8')):
     return mm.subm(f, mm.dil1(mm.ero1(f,b),b) )
 
   @staticmethod
-  def closeth(f,b=mm.sebox()):
+  def closeth(f,b=np.zeros((3,3),dtype= 'uint8')):
       return mm.subm(cv2.morphologyEx(f, cv2.MORPH_CLOSE, b),f)
        
   @staticmethod
-  def closerecth(f,b=mm.sebox()):
+  def closerecth(f,b=np.zeros((3,3),dtype= 'uint8')):
       return mm.subm(cv2.morphologyEx(f, cv2.MORPH_CLOSE, b),f)
 
   @staticmethod
-  def open(f,b=mm.sebox()):
+  def open(f,b=np.zeros((3,3),dtype= 'uint8')):
       return cv2.morphologyEx(f, cv2.MORPH_OPEN, b)
   
   @staticmethod
-  def close(f,b=mm.sebox()):
+  def close(f,b=np.zeros((3,3),dtype= 'uint8')):
       return cv2.morphologyEx(f, cv2.MORPH_CLOSE, b)
    
   @staticmethod
-  def water0(f,b=mm.sebox(), op='region'):
+  def water0(f,b=np.zeros((3,3),dtype= 'uint8'), op='region'):
       """This function will create the watershed
         input:
           - f: input binary image
@@ -817,7 +833,7 @@ class mm(object):
         return mm.gradm(g,mm.secross())
 	
   @staticmethod
-  def waterB(f,m,b=mm.sebox(), op='region'):
+  def waterB(f,m,b=np.zeros((3,3),dtype= 'uint8'), op='region'):
       """This function will create the watershed, process only border pixel of each object
         input:
           - f: input binary image

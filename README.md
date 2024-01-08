@@ -1,7 +1,9 @@
 # morph
-A Practical Digital Image Processing Course with morph.py (EduComp2024)
 
+Aceito no [EduComp2024](https://www.educompbrasil.org/simposio)
 ```
+A Practical Digital Image Processing Course with morph.py
+
 Francisco de Assis Zampirolli, João Marcelo Borovina Josko, Fernando Teubl, Celso Setsuo
 Kurashima
 
@@ -9,4 +11,5 @@ Kurashima
 
 Federal University of ABC (UFABC)
 ```
+
 
