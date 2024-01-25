@@ -1,3 +1,10 @@
+
+"""
+Copyright 2014 by Francisco de Assis Zampirolli from UFABC
+License MIT
+https://github.com/fzampirolli/morph
+25 January 2024
+"""
 import matplotlib.pyplot as plt, numpy as np, cv2, requests, sys, subprocess
 from PIL import Image
 from skimage import io
