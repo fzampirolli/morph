@@ -12,8 +12,7 @@ Kurashima
 Federal University of ABC (UFABC)
 ```
 
-The best paper on the Educational Resources and Environments track!
-
+The best paper on the Educational and Environmental Resources track!
 
 
 
