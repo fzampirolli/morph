@@ -413,7 +413,7 @@ class mm(object):
     output:
       - y: result of Minkowski sum
     """
-    B = np.zeros((3,3)).astype('uint8')
+    B = np.ones((3, 3), dtype='uint8')
     return mm.sesum(B,n)
    
   @staticmethod
@@ -424,7 +424,7 @@ class mm(object):
     output:
       - y: result of Minkowski sum
     """
-    B = np.ones((3,3)).astype('uint8')
+    B = np.ones((3, 3), dtype='uint8')
     B[0,0] = B[0,2] = B[2,0] = B[2,2] = 0
     return mm.sesum(B,n)
     
