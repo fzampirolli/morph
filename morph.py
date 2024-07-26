@@ -220,7 +220,7 @@ class mm(object):
       """
       h,w = f.shape
       Bh, Bw = B.shape
-      Bcx, Bcy = Bw//2, Bh//2
+      Bcx, Bcy = Bw//3, Bh//3
       m = min(h,w)
       plt.figure(figsize=(m,m))
       plt.rcParams['xtick.bottom'] = plt.rcParams['xtick.labelbottom'] = False
@@ -395,9 +395,9 @@ class mm(object):
       nbh,nbw = nb.shape
       H = nbh+h-1 if h%2 else nbh+h
       W = nbw+w-1 if w%2 else nbw+w
-      Hc,Wc = H//2, W//2
+      Hc,Wc = H//3, W//3
       r = np.zeros((H,W)).astype('uint8')
-      r[h//2:-(h//2),w//2:-(w//2)] = nb
+      r[h//3:-(h//3),w//3:-(w//3)] = nb
       return cv2.dilate(r,b).astype('uint8')
 
     B = b.copy()
@@ -978,7 +978,7 @@ class mm(object):
         for k,c in enumerate(cont):
             x,y,w,h = cv2.boundingRect(c)
             measures.append(k+1)
-            cv2.putText(color_img, str(k+1),(x+w//3, y+h//2), cv2.FONT_HERSHEY_SIMPLEX, 0.2,(255,0,0),border,cv2.LINE_AA)
+            cv2.putText(color_img, str(k+1),(x+w//3, y+h//3), cv2.FONT_HERSHEY_SIMPLEX, 0.2,(255,0,0),border,cv2.LINE_AA)
       
       elif op=='textPer':
         cont, _ = cv2.findContours(f.copy(), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
@@ -987,7 +987,7 @@ class mm(object):
             perimeter = int(cv2.arcLength(c,True))
             measures.append(perimeter)
             x,y,w,h = cv2.boundingRect(c)
-            cv2.putText(color_img, str(perimeter),(x+w//3, y+h//2), cv2.FONT_HERSHEY_SIMPLEX, 0.2,(255,0,0),border,cv2.LINE_AA)
+            cv2.putText(color_img, str(perimeter),(x+w//3, y+h//3), cv2.FONT_HERSHEY_SIMPLEX, 0.2,(255,0,0),border,cv2.LINE_AA)
 
       elif op=='textArea':
         cont, _ = cv2.findContours(f.copy(), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
@@ -996,7 +996,7 @@ class mm(object):
             area = int(cv2.contourArea(c))
             measures.append(area)
             x,y,w,h = cv2.boundingRect(c)
-            cv2.putText(color_img, str(area),(x+w//3, y+h//2), cv2.FONT_HERSHEY_SIMPLEX, 0.2,(255,0,0),border,cv2.LINE_AA)
+            cv2.putText(color_img, str(area),(x+w//3, y+h//3), cv2.FONT_HERSHEY_SIMPLEX, 0.2,(255,0,0),border,cv2.LINE_AA)
 
       elif op=='box':
         color_img = cv2.cvtColor(f, cv2.COLOR_GRAY2RGB)
@@ -1211,7 +1211,7 @@ class mm(object):
     gneg = (1 - g).astype('uint16')
     c = 0
     y = gneg
-    while True and c<1000000:
+    while True and c<2000:
       c+=1
       y0=y
       log = np.logical_xor(gneg,fneg)

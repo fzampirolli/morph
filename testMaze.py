@@ -9,8 +9,8 @@ python testMaze.py fig_Maze1.png
 python testMaze.py fig_Maze2.png
 
 fonte: https://journals.aps.org/prx/pdf/10.1103/PhysRevX.14.031005
-python testMaze.py fig_Maze3.png
 python testMaze.py fig_Maze3a.png
+python testMaze.py fig_Maze3b.png
 
 '''
 import time
@@ -38,8 +38,10 @@ def main(input_file):
         f2 = mm.label(f1)
 
     # Display the preprocessed image
-    plt.figure(figsize=(7, 7))
+    plt.figure(figsize=(10, 10))
     mm.show(f)  # image (a)
+    print(f.shape)
+    H,W = f.shape
 
     # Define markers based on the input file
     m1, m2 = np.zeros_like(f, dtype='uint8'), np.zeros_like(f, dtype='uint8')
@@ -50,21 +52,28 @@ def main(input_file):
     elif input_file == 'fig_Maze2.png':
         m1, m2 = np.array(f2 == 2, dtype='uint8'), np.array(f2 == 3, dtype='uint8')
         mm.show(imgRGB, mm.dil(m1, mm.sedisk(2)), mm.dil(m2, mm.sedisk(2)))
-    elif input_file == 'fig_Maze3.png':
-        m1[992, 1005], m2[1650, 600] = 1, 1
-        mm.show(imgRGB, mm.dil(m1, mm.sedisk(17)), mm.dil(m2, mm.sedisk(17)))
     elif input_file == 'fig_Maze3a.png':
-        m1[55, 1012], m2[720, 600] = 1, 1
-        mm.show(imgRGB, mm.dil(m1, mm.sedisk(17)), mm.dil(m2, mm.sedisk(17)))
+        m1[2030, 2065], m2[3400, 1250] = 1, 1
+        mm.show(imgRGB, mm.dil(m1, mm.sedisk(30)), mm.dil(m2, mm.sedisk(30)))
+    elif input_file == 'fig_Maze3b.png':
+        m1[301, 297], m2[485, 175] = 1, 1
+        mm.show(imgRGB, mm.dil(m1, mm.sedisk(7)), mm.dil(m2, mm.sedisk(7)))
 
+    #exit(0)
     # Measure the processing time
     start_time = time.time()
-    b = mm.gdist(f, m1)  # image (b)
+    if input_file == 'fig_Maze1.png':
+        b = mm.gdist(f, m1)  # image (b)
+    else:
+        b = mm.gdist(f, m1, mm.secross())  # image (b)
     end_time = time.time()
     processing_time = end_time - start_time
     print(f"Processing time for m1: {processing_time:.4f} seconds")
 
-    c = mm.gdist(f, m2)  # image (c)
+    if input_file == 'fig_Maze1.png':
+        c = mm.gdist(f, m2)  # image (c)
+    else:
+        c = mm.gdist(f, m2, mm.secross())  # image (c)
 
     # Display the results
     mm.show(b)
