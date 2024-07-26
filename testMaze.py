@@ -3,8 +3,9 @@ import time
 from morph import *
 
 file = 'fig_Maze1.png'
-#file = 'fig_Maze2.png'
-# file = 'fig_Maze3.png'
+file = 'fig_Maze2.png'
+file = 'fig_Maze3.png'
+file = 'fig_Maze3a.png'
 img0 = mm.read(file)
 
 if file == 'fig_Maze1.png':
@@ -30,9 +31,19 @@ m2 = np.zeros_like(f).astype('uint8')
 
 if file == 'fig_Maze1.png':
     m1[1,17] = m2[-2,17] = 1
+    mm.show(imgRGB, mm.dil(m1, mm.secross()), mm.dil(m2, mm.secross()))
 elif file == 'fig_Maze2.png':
     m1 = np.array(f2==2).astype('uint8')
     m2 = np.array(f2==3).astype('uint8')
+    mm.show(imgRGB, mm.dil(m1, mm.sedisk(2)), mm.dil(m2, mm.sedisk(2)))
+elif file == 'fig_Maze3.png':
+    m1[992, 1005] = 1
+    m2[1650, 600] = 1
+    mm.show(imgRGB, mm.dil(m1, mm.sedisk(17)), mm.dil(m2, mm.sedisk(17)))
+elif file == 'fig_Maze3a.png':
+    m1[55, 1012] = 1
+    m2[720, 600] = 1
+    mm.show(imgRGB,mm.dil(m1,mm.sedisk(17)),mm.dil(m2,mm.sedisk(17)))
 
 start_time = time.time()  # Marcar o tempo de início
 
