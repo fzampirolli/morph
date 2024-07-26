@@ -1,11 +1,18 @@
-import time
+import time, argparse
 
 from morph import *
+
+parser = argparse.ArgumentParser(description='Process an image with geodesic distance transform.')
+parser.add_argument('file', type=str, help='Path to the image file to be processed')
+args = parser.parse_args()
+
 
 file = 'fig_Maze1.png'
 file = 'fig_Maze2.png'
 file = 'fig_Maze3.png'
 file = 'fig_Maze3a.png'
+file = args.file
+print('file:',file)
 img0 = mm.read(file)
 
 if file == 'fig_Maze1.png':
@@ -55,6 +62,9 @@ processing_time = end_time - start_time
 print(f"Processing time: {processing_time:.4f} seconds")
 
 c = mm.gdist(f,m2) # image (c)
+
+mm.show(b)
+mm.show(c)
 
 d = b + c
 min = np.amin(d[d != np.amin(d)]) # minimum
