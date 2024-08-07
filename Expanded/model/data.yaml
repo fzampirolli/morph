@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 9
+names: ['circle', 'cross', 'ellipse', 'heptagon', 'hexagon', 'pentagon', 'square', 'star', 'triangle']
+
+roboflow:
+  workspace: visao
+  project: geometric-shapes-5hwwu
+  version: 5
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/visao/geometric-shapes-5hwwu/dataset/5
